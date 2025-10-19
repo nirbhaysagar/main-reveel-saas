@@ -1,0 +1,54 @@
+// ============================================
+// PRISMA SCHEMA - Database Configuration
+// ============================================
+// Purpose: Define database structure and connection
+// What: Tells Prisma how to connect to your database
+// Why: Type-safe database access
+
+// Generator: Creates the Prisma Client (TypeScript types)
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Datasource: Database connection configuration
+datasource db {
+  provider = "postgresql"  // Database type: PostgreSQL
+  url      = env("DATABASE_URL")  // Connection string from .env file
+}
+
+// ============================================
+// MODELS (Database Tables)
+// ============================================
+// We'll add models (tables) here as we build features
+// For now, we'll start with a basic User model
+
+// User Model: Stores user account information
+model User {
+  id            String    @id @default(cuid())
+  // @id: Primary key (unique identifier)
+  // @default(cuid()): Auto-generate unique ID
+  
+  email         String    @unique
+  // @unique: No two users can have the same email
+  
+  name          String?
+  // String?: Optional field (can be null)
+  
+  password      String
+  // Will be hashed before storing (bcrypt)
+  
+  emailVerified DateTime?
+  // Timestamp for email verification
+  
+  image         String?
+  // Profile picture URL
+  
+  createdAt     DateTime  @default(now())
+  // @default(now()): Auto-set to current time on creation
+  
+  updatedAt     DateTime  @updatedAt
+  // @updatedAt: Auto-update on every save
+  
+  @@map("users")
+  // @@map: Use "users" as table name in database
+}
