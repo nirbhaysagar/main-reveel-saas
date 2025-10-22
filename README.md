@@ -1,36 +1,209 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Reveel - Competitive Intelligence Platform
 
-## Getting Started
+A comprehensive B2B SaaS platform for tracking competitors, detecting changes, and generating AI-powered insights.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **🔐 Authentication**: Secure user registration and login
+- **👥 Competitor Management**: Add, edit, and monitor competitors
+- **🔍 Change Detection**: Automated scraping and change detection
+- **🤖 AI Integration**: OpenAI-powered insights and recommendations
+- **⏰ Background Jobs**: Scheduled scraping and processing
+- **📧 Notifications**: Email and in-app notifications
+- **🛡️ Security**: Comprehensive security measures and validation
+
+## 🏗️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: TailwindCSS, Shadcn UI
+- **Database**: PostgreSQL (Supabase)
+- **Authentication**: NextAuth.js
+- **AI**: OpenAI API
+- **Background Jobs**: BullMQ + Redis
+- **Email**: Resend
+- **Deployment**: Vercel
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- PostgreSQL database
+- Redis instance
+- OpenAI API key
+- Resend API key
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd reveel
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your values
+   ```
+
+4. **Set up the database**
+   ```bash
+   npm run db:generate
+   npm run db:push
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📁 Project Structure
+
+```
+reveel/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── (auth)/            # Authentication pages
+│   │   ├── (dashboard)/       # Dashboard pages
+│   │   ├── api/               # API routes
+│   │   └── globals.css        # Global styles
+│   ├── components/            # Reusable components
+│   │   └── ui/               # UI components
+│   ├── lib/                   # Utilities and configurations
+│   └── services/              # Business logic services
+├── prisma/
+│   ├── schema.prisma          # Database schema
+│   └── migrations/            # Database migrations
+├── public/                    # Static assets
+└── docs/                      # Documentation
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Available Scripts
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues
+- `npm run type-check` - Run TypeScript type checking
+- `npm run db:generate` - Generate Prisma client
+- `npm run db:push` - Push schema to database
+- `npm run db:migrate` - Run database migrations
+- `npm run db:deploy` - Deploy migrations to production
+- `npm run worker` - Start background job worker
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌐 Environment Variables
 
-## Learn More
+```bash
+# Database
+DATABASE_URL="postgresql://..."
+DIRECT_URL="postgresql://..."
 
-To learn more about Next.js, take a look at the following resources:
+# NextAuth
+NEXTAUTH_SECRET="your-secret-key"
+NEXTAUTH_URL="http://localhost:3000"
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# OpenAI
+OPENAI_API_KEY="your-openai-key"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Redis
+REDIS_URL="your-redis-url"
 
-## Deploy on Vercel
+# Email
+RESEND_API_KEY="your-resend-key"
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Environment
+NODE_ENV="development"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. **Push to GitHub**
+   ```bash
+   git add .
+   git commit -m "Production ready"
+   git push origin main
+   ```
+
+2. **Deploy to Vercel**
+   - Connect your GitHub repository
+   - Configure environment variables
+   - Deploy automatically
+
+### Manual Deployment
+
+1. **Build the application**
+   ```bash
+   npm run build
+   ```
+
+2. **Start the production server**
+   ```bash
+   npm run start
+   ```
+
+## 📊 Monitoring
+
+- **Vercel Analytics**: Built-in performance monitoring
+- **Supabase Dashboard**: Database monitoring
+- **Error Tracking**: Built-in error handling
+- **Uptime Monitoring**: External service recommended
+
+## 🔒 Security
+
+- **SSRF Protection**: URL validation prevents internal access
+- **XSS Prevention**: Input sanitization and validation
+- **Rate Limiting**: Prevents DoS attacks
+- **SQL Injection**: Protected by Prisma ORM
+- **Authentication**: Secure session management
+- **Input Validation**: Comprehensive validation layer
+
+## 📈 Performance
+
+- **Next.js 15**: Latest performance optimizations
+- **Turbopack**: Fast development builds
+- **Image Optimization**: Automatic image optimization
+- **Caching**: Strategic caching implementation
+- **CDN**: Global content delivery
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🆘 Support
+
+- **Documentation**: Check the `/docs` folder
+- **Issues**: Create a GitHub issue
+- **Discussions**: Use GitHub Discussions
+
+## 🎯 Roadmap
+
+- [ ] Advanced AI insights
+- [ ] Multi-tenant support
+- [ ] API rate limiting
+- [ ] Advanced analytics
+- [ ] Mobile app
+- [ ] Webhook integrations
+
+---
+
+**Built with ❤️ using Next.js, Supabase, and OpenAI**

@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 //component definition
 export default function LoginPage() {
@@ -15,49 +17,47 @@ export default function LoginPage() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
-
+    const router = useRouter()
     //form submission handler
-    const handleSubmit = async (e:React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError('')
         setLoading(true)
 
-        //mock auth for now
-        setTimeout(()=> {
-            //check if email and password are correct
-            if(email === 'test@example.com' && password === 'password') {
-                alert('Login successful')
-            } else {
+        try {
+            // ============================================
+            // NEXT AUTH SIGN IN
+            // ============================================
+            // What: Use NextAuth to authenticate user
+            // Why: Secure authentication with session management
+            const result = await signIn('credentials', {
+                email,
+                password,
+                redirect: false,
+            })
+
+            if (result?.error) {
                 setError('Invalid email or password')
+            } else {
+                // Success! Redirect to dashboard
+                router.push('/dashboard')
             }
+        } catch (err) {
+            setError('Something went wrong')
+        } finally {
             setLoading(false)
-        }, 1000)
+        }
     }
 
     //outer container
     //jsx return statement
     return(
-
-        <div className="flex min-h-scren items-center justify-center bg-gradient-to-b from-slate-50 to-white">
-            {
-               /**
-                * this is for outer container
-                */
-            }
-
-            {
-                /**
-                 * catrd component: main container for the form
-                 * CardHeader: title and description
-                 * CardContent: form fields and submit button
-                 * CardFooter: error message
-                 */
-            }
-            
-            <CardHeader>
-                <CardTitle>Welcome to Reveel</CardTitle>
-                <CardDescription>Sign in to your account to continue</CardDescription>
-            </CardHeader>
+        <div className="flex min-h-screen items-center justify-center bg-gradient-to-b from-slate-50 to-white">
+            <Card className="w-full max-w-md">
+                <CardHeader>
+                    <CardTitle>Welcome to Reveel</CardTitle>
+                    <CardDescription>Sign in to your account to continue</CardDescription>
+                </CardHeader>
 
             {/* //Card content: form fields and submit button */}
             
@@ -77,7 +77,7 @@ export default function LoginPage() {
             
             <div className="space-y-2">
                 <Label htmlFor='password'>Password</Label>
-                <input 
+                <Input 
                 id='password'
                 type='password'
                 placeholder='********'
@@ -99,13 +99,6 @@ export default function LoginPage() {
             {loading ? 'Logging in...' : 'Sign In'}
             </Button>
             
-        {/**test credentials */}
-
-            <div className="text-xs text-center text-slate-500">
-                Test: test@example.com / password
-            </div>
-            
-            
             </form>
             </CardContent>
 
@@ -115,6 +108,7 @@ export default function LoginPage() {
                     Don't have an account? <Link href='/register'>Register</Link>
                 </p>
             </CardFooter>
+            </Card>
         </div>
     )
 }
