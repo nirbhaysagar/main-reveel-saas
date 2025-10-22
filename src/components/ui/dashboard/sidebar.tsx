@@ -64,7 +64,7 @@ export function Sidebar() {
     <div className="w-72 bg-white border-r border-gray-100 h-screen sticky top-0">
       <div className="p-8">
         {/* Logo */}
-        <div className="mb-16 animate-in fade-in-0 slide-in-from-left-4 duration-500">
+        <div className="mb-16">
           <h1 className="text-2xl font-medium text-gray-900 tracking-tight" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
             Reveel
           </h1>
@@ -84,15 +84,12 @@ export function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'group flex items-center px-5 py-4 rounded-2xl text-sm font-medium transition-all duration-300 relative animate-in fade-in-0 slide-in-from-left-4',
+                  'group flex items-center px-5 py-4 rounded-2xl text-sm font-medium transition-colors duration-200',
                   isActive
                     ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm hover:shadow-gray-200/50'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 )}
-                style={{ 
-                  fontFamily: 'SF Pro Text, system-ui, sans-serif',
-                  animationDelay: `${index * 100}ms`
-                }}
+                style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}
               >
                 <div className={cn(
                   'w-10 h-10 rounded-xl flex items-center justify-center mr-4 transition-all duration-300',
@@ -117,7 +114,7 @@ export function Sidebar() {
         </nav>
 
         {/* User Profile Section */}
-        <div className="mt-16 pt-8 border-t border-gray-100 animate-in fade-in-0 slide-in-from-left-4 duration-700 delay-300">
+        <div className="mt-16 pt-8 border-t border-gray-100">
           <div className="flex items-center px-5 py-4 rounded-2xl bg-gray-50 hover:bg-gray-100 transition-colors duration-300 cursor-pointer group">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-4">
               <span className="text-white font-medium text-sm">JD</span>

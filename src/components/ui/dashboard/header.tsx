@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 
 export function Header() {
   return (
-    <header className="h-20 border-b border-gray-100 bg-white/80 backdrop-blur-xl px-8 flex items-center justify-between animate-in fade-in-0 slide-in-from-top-4 duration-500">
+    <header className="h-20 border-b border-gray-100 bg-white px-8 flex items-center justify-between">
       {/* Search Bar */}
       <div className="flex-1 max-w-lg">
         <div className="relative group">
@@ -14,7 +14,7 @@ export function Header() {
           <Input
             type="search"
             placeholder="Search competitors, reports..."
-            className="pl-14 pr-6 py-4 w-full rounded-3xl border-gray-200 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/20 bg-gray-50 font-light text-base transition-all duration-300 hover:bg-gray-100 focus:bg-white focus:shadow-lg focus:shadow-gray-900/10"
+            className="pl-14 pr-6 py-4 w-full rounded-3xl border-gray-200 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/20 bg-gray-50 font-light text-base transition-colors duration-200 hover:bg-gray-100 focus:bg-white"
             style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}
           />
           <div className="absolute right-4 top-1/2 -translate-y-1/2">

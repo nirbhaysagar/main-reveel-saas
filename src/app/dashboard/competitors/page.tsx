@@ -8,9 +8,9 @@ export default function CompetitorsPage() {
   const [showForm, setShowForm] = useState(false)
 
   return (
-    <div className="space-y-10 animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="animate-in fade-in-0 slide-in-from-bottom-2 duration-500">
+      <div>
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-5xl font-light text-gray-900 mb-3 tracking-tight flex items-center gap-4" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
@@ -35,7 +35,7 @@ export default function CompetitorsPage() {
       </div>
 
       {showForm ? (
-        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
+        <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8">
           <h2 className="text-2xl font-medium text-gray-900 mb-6" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
             Add New Competitor
           </h2>
@@ -94,7 +94,7 @@ export default function CompetitorsPage() {
 
           {/* Sample Competitors (for testing) */}
           <div className="grid gap-6">
-            <div className="group bg-white rounded-3xl border border-gray-100 shadow-sm p-8 hover:shadow-md transition-all duration-300 hover:-translate-y-1 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-100">
+            <div className="group bg-white rounded-3xl border border-gray-100 shadow-sm p-8 hover:shadow-md transition-shadow duration-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
                   <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 transition-colors duration-300">
@@ -121,7 +121,7 @@ export default function CompetitorsPage() {
               </div>
             </div>
 
-            <div className="group bg-white rounded-3xl border border-gray-100 shadow-sm p-8 hover:shadow-md transition-all duration-300 hover:-translate-y-1 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-200">
+            <div className="group bg-white rounded-3xl border border-gray-100 shadow-sm p-8 hover:shadow-md transition-shadow duration-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
                   <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center group-hover:bg-orange-100 transition-colors duration-300">

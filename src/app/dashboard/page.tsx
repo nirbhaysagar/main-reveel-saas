@@ -1,8 +1,8 @@
 export default function DashboardPage() {
   return (
-    <div className="space-y-10 animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
+    <div className="space-y-10">
       {/* Header */}
-      <div className="animate-in fade-in-0 slide-in-from-bottom-2 duration-500">
+      <div>
         <h1 className="text-5xl font-light text-gray-900 mb-3 tracking-tight" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
           Dashboard
         </h1>
@@ -13,7 +13,7 @@ export default function DashboardPage() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-100">
+        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:bg-blue-100 transition-colors duration-300">
               <div className="w-6 h-6 bg-blue-500 rounded-lg"></div>
@@ -25,7 +25,7 @@ export default function DashboardPage() {
           <p className="text-sm text-gray-500 font-light" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>+2 this month</p>
         </div>
         
-        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-200">
+        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-orange-50 rounded-2xl flex items-center justify-center group-hover:bg-orange-100 transition-colors duration-300">
               <div className="w-6 h-6 bg-orange-500 rounded-lg"></div>
@@ -37,7 +37,7 @@ export default function DashboardPage() {
           <p className="text-sm text-gray-500 font-light" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>+12 this week</p>
         </div>
         
-        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-300">
+        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center group-hover:bg-purple-100 transition-colors duration-300">
               <div className="w-6 h-6 bg-purple-500 rounded-lg"></div>
@@ -49,7 +49,7 @@ export default function DashboardPage() {
           <p className="text-sm text-gray-500 font-light" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>Generated today</p>
         </div>
         
-        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-400">
+        <div className="group bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center group-hover:bg-green-100 transition-colors duration-300">
               <div className="w-6 h-6 bg-green-500 rounded-lg"></div>
@@ -63,7 +63,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white rounded-3xl border border-gray-100 shadow-sm animate-in fade-in-0 slide-in-from-bottom-4 duration-700 delay-500">
+      <div className="bg-white rounded-3xl border border-gray-100 shadow-sm">
         <div className="p-8 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div>
