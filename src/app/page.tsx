@@ -1,11 +1,10 @@
-'use client'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Play, Target, Zap, Bell, Mail, Users, Slack, Chrome, FileText, MessageCircle, Twitter } from 'lucide-react'
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" suppressHydrationWarning>
       {/* Navigation */}
       <nav className="bg-white/80 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6">
