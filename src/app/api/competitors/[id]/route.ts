@@ -37,7 +37,6 @@ export async function GET(
       )
     }
 
-    // Check if user owns this competitor
     if (competitor.userId !== session.user.id) {
       return NextResponse.json(
         { error: 'Unauthorized' },

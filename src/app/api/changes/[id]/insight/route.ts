@@ -39,7 +39,6 @@ export async function POST(
       )
     }
 
-    // Check ownership
     if (change.competitor.userId !== session.user.id) {
       return NextResponse.json(
         { error: 'Unauthorized' },

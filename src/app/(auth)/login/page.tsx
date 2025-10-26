@@ -81,20 +81,20 @@ export default function LoginPage() {
             </div>
 
             {/* 3. Right Side - Login Form (This is the second column) */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4 overflow-y-auto">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-6 md:p-8 lg:p-12 overflow-y-auto">
                 <div className="w-full max-w-md mx-auto">
                     {/* This is the white card containing the form */}
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
+                    <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 lg:p-10">
                         {/* Header */}
                         <div className="text-center space-y-2 mb-8">
                             <Link href="/" className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-6">
                                 <ArrowLeft className="w-4 h-4 mr-2" />
                                 Back to Home
                             </Link>
-                            <h2 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                                 Sign In
                             </h2>
-                            <p className="text-gray-600">
+                            <p className="text-base md:text-lg text-gray-600">
                                 Welcome back! Please sign in to your account
                             </p>
                         </div>
@@ -103,7 +103,7 @@ export default function LoginPage() {
                         <form onSubmit={handleSubmit} className="space-y-6">
                             {/* Email Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="email" className="text-sm font-semibold text-gray-700">
+                                <Label htmlFor="email" className="text-base font-semibold text-gray-700">
                                     Email Address
                                 </Label>
                                 <div className="relative">
@@ -115,14 +115,14 @@ export default function LoginPage() {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
-                                        className="pl-10 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                                        className="pl-10 h-14 md:h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                                     />
                                 </div>
                             </div>
 
                             {/* Password Field */}
                             <div className="space-y-2">
-                                <Label htmlFor="password" className="text-sm font-semibold text-gray-700">
+                                <Label htmlFor="password" className="text-base font-semibold text-gray-700">
                                     Password
                                 </Label>
                                 <div className="relative">
@@ -135,7 +135,7 @@ export default function LoginPage() {
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
                                         disabled={loading}
-                                        className="pl-10 pr-10 h-12 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+                                        className="pl-10 pr-10 h-14 md:h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-blue-500"
                                     />
                                     <button
                                         type="button"

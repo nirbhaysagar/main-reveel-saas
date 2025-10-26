@@ -91,12 +91,12 @@ export function Sidebar() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  'group flex items-center px-5 py-4 rounded-2xl text-sm font-medium transition-colors duration-200',
+                  'group flex items-center px-5 py-4 rounded-2xl text-base font-medium transition-colors duration-200',
                   isActive
                     ? 'bg-gray-900 text-white shadow-lg shadow-gray-900/20'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 )}
-                style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}
+                style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif', fontSize: '22px' }}
               >
                 <div className={cn(
                   'w-10 h-10 rounded-xl flex items-center justify-center mr-4 transition-all duration-300',
@@ -127,10 +127,10 @@ export function Sidebar() {
               <span className="text-white font-medium text-sm">JD</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-gray-900 group-hover:text-gray-700 transition-colors duration-300" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+              <p className="text-lg font-medium text-gray-900 group-hover:text-gray-700 transition-colors duration-300" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
                 John Doe
               </p>
-              <p className="text-xs text-gray-500 font-light" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+              <p className="text-base text-gray-500 font-light" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
                 Admin
               </p>
             </div>

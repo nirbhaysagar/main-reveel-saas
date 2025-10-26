@@ -122,6 +122,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-size: 18px; /* Increased base font size from 16px to 18px */
   }
 }
 
@@ -183,5 +184,29 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-size: 18px; /* Increased base font size for better readability */
+  }
+  
+  /* Increase font sizes for common dashboard elements */
+  h1 {
+    font-size: 2.5rem; /* 40px */
+  }
+  
+  h2 {
+    font-size: 2rem; /* 32px */
+  }
+  
+  h3 {
+    font-size: 1.75rem; /* 28px */
+  }
+  
+  p {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75;
+  }
+  
+  /* Sidebar navigation */
+  nav a {
+    font-size: 1rem; /* 16px */
   }
 }

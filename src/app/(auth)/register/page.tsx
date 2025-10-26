@@ -78,24 +78,23 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex">
+    <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
       {/* Left Side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-purple-600 to-pink-600 relative">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 flex flex-col justify-center items-center text-white p-16">
-          <div className="text-center space-y-8 max-w-md">
-            <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <span className="text-2xl">🎯</span>
+      <div className="hidden lg:flex flex-col items-center justify-center bg-gradient-to-br from-purple-600 to-pink-600 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="relative z-10 text-center space-y-8 p-12 text-white">
+            <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm mx-auto">
+              <span className="text-3xl">🎯</span>
             </div>
             <div>
               <h1 className="text-4xl font-bold mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 Start Your Free Trial
               </h1>
-              <p className="text-lg text-white/90">
+              <p className="text-lg text-white/90 max-w-md mx-auto">
                 Join thousands of businesses using Reveel to stay ahead of the competition
               </p>
             </div>
-            <div className="space-y-3 text-left">
+            <div className="space-y-4 text-left max-w-sm mx-auto">
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
                 <span>14-day free trial</span>
@@ -109,32 +108,37 @@ export default function RegisterPage() {
                 <span>Cancel anytime</span>
               </div>
             </div>
-          </div>
         </div>
       </div>
 
       {/* Right Side - Register Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
-          {/* Header */}
-          <div className="mb-8">
-            <Link href="/" className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors mb-6">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Home
-            </Link>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
-              Create Account
-            </h2>
-            <p className="text-gray-600">
-              Start your free trial and transform your competitive intelligence
-            </p>
+      <div className="bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center p-6 md:p-8 lg:p-12 overflow-y-auto">
+        <div className="w-full max-w-md mx-auto">
+          {/* This is the white card containing the form */}
+          <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 lg:p-10">
+            {/* Header */}
+            <div className="text-center space-y-2 mb-8">
+              <div className="flex justify-center mb-6">
+                <Link href="/" className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors">
+                  <ArrowLeft className="w-4 h-4 mr-2" />
+                  Back to Home
+                </Link>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900" style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
+                Create Account
+              </h2>
+              <p className="text-base md:text-lg text-gray-600">
+                Start your free trial and transform your competitive intelligence
+              </p>
           </div>
 
-          {/* Register Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+            </div>
+
+            {/* Register Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name Field */}
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+              <Label htmlFor="name" className="text-base font-medium text-gray-700">
                 Full Name
               </Label>
               <div className="relative">
@@ -154,7 +158,7 @@ export default function RegisterPage() {
 
             {/* Email Field */}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+              <Label htmlFor="email" className="text-base font-medium text-gray-700">
                 Email Address
               </Label>
               <div className="relative">
@@ -174,7 +178,7 @@ export default function RegisterPage() {
 
             {/* Password Field */}
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+              <Label htmlFor="password" className="text-base font-medium text-gray-700">
                 Password
               </Label>
               <div className="relative">
@@ -268,14 +272,15 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          {/* Footer */}
-          <div className="text-center mt-8">
-            <p className="text-gray-600">
-              Already have an account?{' '}
-              <Link href="/login" className="text-purple-600 hover:text-purple-700 font-semibold">
-                Sign in
-              </Link>
-            </p>
+            {/* Footer */}
+            <div className="text-center mt-8">
+              <p className="text-gray-600">
+                Already have an account?{' '}
+                <Link href="/login" className="text-purple-600 hover:text-purple-700 font-semibold">
+                  Sign in
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </div>
