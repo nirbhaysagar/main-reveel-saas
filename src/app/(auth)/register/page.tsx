@@ -130,8 +130,6 @@ export default function RegisterPage() {
               <p className="text-base md:text-lg text-gray-600">
                 Start your free trial and transform your competitive intelligence
               </p>
-          </div>
-
             </div>
 
             {/* Register Form */}
