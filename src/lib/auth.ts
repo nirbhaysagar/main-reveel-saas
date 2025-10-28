@@ -115,6 +115,24 @@ export const authOptions: NextAuthOptions = {
   },
 
   // ============================================
+  // CALLBACKS
+  // ============================================
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id as string
+      }
+      return session
+    },
+  },
+
+  // ============================================
   // CUSTOM PAGES
   // ============================================
   // What: Custom login/register pages
