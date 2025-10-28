@@ -89,8 +89,8 @@ export async function POST(
         competitorId: competitor.id,
         html: scrapedData.html,
         screenshot: scrapedData.screenshot,
-        extractedData: scrapedData.extractedData,
-        detectedText: scrapedData.extractedData as string,
+        extractedData: scrapedData.extractData,
+        detectedText: scrapedData.extractData as string,
       },
     })
 
