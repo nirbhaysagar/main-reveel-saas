@@ -1,27 +1,66 @@
-import { TrendingUp, Users, AlertTriangle, Brain, ArrowUpRight, Activity, Zap, Target } from 'lucide-react'
+'use client'
+
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+import { Users, Activity, AlertTriangle, Brain, Zap, Target, Plus } from 'lucide-react'
+import Link from 'next/link'
 
 export default function DashboardPage() {
+  const { data: session } = useSession()
+  const [stats, setStats] = useState({
+    competitors: 0,
+    changes: 0,
+    alerts: 0,
+    insights: 0
+  })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchStats()
+  }, [])
+
+  const fetchStats = async () => {
+    try {
+      const [competitorsRes, changesRes] = await Promise.all([
+        fetch('/api/competitors'),
+        fetch('/api/changes')
+      ])
+      
+      const competitors = await competitorsRes.json()
+      const changes = await changesRes.json()
+      
+      setStats({
+        competitors: competitors.competitors?.length || 0,
+        changes: changes.changes?.length || 0,
+        alerts: 0, // TODO: Implement alerts
+        insights: 0  // TODO: Implement insights
+      })
+    } catch (error) {
+      console.error('Error fetching stats:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const userName = session?.user?.name || 'User'
+
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-4xl font-bold text-gray-900" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
-            Good morning, John
+            Welcome back, {userName}
           </h1>
           <p className="text-lg text-gray-600 mt-2" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-            Here's what's happening with your competitive intelligence
+            Here&apos;s what&apos;s happening with your competitive intelligence
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <button className="px-6 py-3 bg-gray-900 text-white rounded-2xl hover:bg-gray-800 transition-all duration-300 font-medium text-sm" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-            <Zap className="w-4 h-4 inline mr-2" />
-            Quick Scan
-          </button>
-          <button className="px-6 py-3 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition-all duration-300 font-medium text-sm" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-            <Target className="w-4 h-4 inline mr-2" />
+          <Link href="/dashboard/competitors/new" className="px-6 py-3 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition-all duration-300 font-medium text-sm" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+            <Plus className="w-4 h-4 inline mr-2" />
             Add Competitor
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -32,20 +71,16 @@ export default function DashboardPage() {
             <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <Users className="w-7 h-7 text-blue-600" />
             </div>
-            <div className="flex items-center text-green-600 text-sm font-medium">
-              <ArrowUpRight className="w-4 h-4 mr-1" />
-              +12%
-            </div>
           </div>
           <div className="space-y-2">
             <h3 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
-              24
+              {loading ? '...' : stats.competitors}
             </h3>
             <p className="text-gray-600 font-medium" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
               Competitors Tracked
             </p>
             <p className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-              +3 this month
+              {stats.competitors === 0 ? 'Add your first competitor' : 'Active monitoring'}
             </p>
           </div>
         </div>
@@ -55,20 +90,16 @@ export default function DashboardPage() {
             <div className="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <Activity className="w-7 h-7 text-green-600" />
             </div>
-            <div className="flex items-center text-green-600 text-sm font-medium">
-              <ArrowUpRight className="w-4 h-4 mr-1" />
-              +8%
-            </div>
           </div>
           <div className="space-y-2">
             <h3 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
-              47
+              {loading ? '...' : stats.changes}
             </h3>
             <p className="text-gray-600 font-medium" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
               Changes Detected
             </p>
             <p className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-              +12 this week
+              {stats.changes === 0 ? 'No changes yet' : 'Recent activity'}
             </p>
           </div>
         </div>
@@ -78,20 +109,16 @@ export default function DashboardPage() {
             <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <AlertTriangle className="w-7 h-7 text-orange-600" />
             </div>
-            <div className="flex items-center text-orange-600 text-sm font-medium">
-              <ArrowUpRight className="w-4 h-4 mr-1" />
-              +5
-            </div>
           </div>
           <div className="space-y-2">
             <h3 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
-              8
+              {loading ? '...' : stats.alerts}
             </h3>
             <p className="text-gray-600 font-medium" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
               Active Alerts
             </p>
             <p className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-              3 new today
+              {stats.alerts === 0 ? 'No alerts' : 'Requires attention'}
             </p>
           </div>
         </div>
@@ -101,20 +128,16 @@ export default function DashboardPage() {
             <div className="w-14 h-14 bg-purple-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <Brain className="w-7 h-7 text-purple-600" />
             </div>
-            <div className="flex items-center text-green-600 text-sm font-medium">
-              <ArrowUpRight className="w-4 h-4 mr-1" />
-              +23%
-            </div>
           </div>
           <div className="space-y-2">
             <h3 className="text-3xl font-bold text-gray-900" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
-              156
+              {loading ? '...' : stats.insights}
             </h3>
             <p className="text-gray-600 font-medium" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
               AI Insights
             </p>
             <p className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-              +23 this week
+              {stats.insights === 0 ? 'Generate insights' : 'Available'}
             </p>
           </div>
         </div>
@@ -134,88 +157,35 @@ export default function DashboardPage() {
                   Latest changes from your competitors
                 </p>
               </div>
-              <button className="text-blue-600 hover:text-blue-700 font-medium text-sm" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                View All
-              </button>
+              {stats.changes > 0 && (
+                <Link href="/dashboard/changes" className="text-blue-600 hover:text-blue-700 font-medium text-sm" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+                  View All
+                </Link>
+              )}
             </div>
           </div>
           <div className="p-8">
-            <div className="space-y-6">
-              <div className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
-                <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="w-6 h-6 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      Nike
-                    </h3>
-                    <span className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      2h ago
-                    </span>
-                  </div>
-                  <p className="text-gray-600 mt-1" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Price drop detected on Air Max 270
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-medium rounded-full" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      Price Change
-                    </span>
-                    <span className="text-sm text-green-600 font-medium">-15%</span>
-                  </div>
-                </div>
+            {stats.changes === 0 ? (
+              <div className="text-center py-12">
+                <Activity className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 mb-2" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+                  No activity yet
+                </h3>
+                <p className="text-gray-500 mb-6" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+                  Add competitors to start tracking changes
+                </p>
+                <Link href="/dashboard/competitors/new" className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Competitor
+                </Link>
               </div>
-
-              <div className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
-                <div className="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Activity className="w-6 h-6 text-green-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      Adidas
-                    </h3>
-                    <span className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      5h ago
-                    </span>
-                  </div>
-                  <p className="text-gray-600 mt-1" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    New product launch: Ultraboost 22
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="px-3 py-1 bg-green-50 text-green-600 text-xs font-medium rounded-full" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      Product Launch
-                    </span>
-                    <span className="text-sm text-gray-600">$180</span>
-                  </div>
-                </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+                  Loading recent activity...
+                </p>
               </div>
-
-              <div className="flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
-                <div className="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Brain className="w-6 h-6 text-purple-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      Puma
-                    </h3>
-                    <span className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      1d ago
-                    </span>
-                  </div>
-                  <p className="text-gray-600 mt-1" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Marketing campaign updated
-                  </p>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="px-3 py-1 bg-purple-50 text-purple-600 text-xs font-medium rounded-full" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                      Campaign
-                    </span>
-                    <span className="text-sm text-gray-600">Social Media</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 
@@ -227,7 +197,7 @@ export default function DashboardPage() {
               Quick Actions
             </h3>
             <div className="space-y-4">
-              <button className="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
+              <Link href="/dashboard/competitors/new" className="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
                 <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Target className="w-5 h-5 text-blue-600" />
                 </div>
@@ -239,78 +209,69 @@ export default function DashboardPage() {
                     Track a new competitor
                   </p>
                 </div>
-              </button>
+              </Link>
 
-              <button className="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
+              <Link href="/dashboard/competitors" className="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
                 <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Zap className="w-5 h-5 text-green-600" />
+                  <Activity className="w-5 h-5 text-green-600" />
                 </div>
                 <div className="text-left">
                   <p className="font-medium text-gray-900" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Quick Scan
+                    View Competitors
                   </p>
                   <p className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Run immediate analysis
+                    Manage your tracking
                   </p>
                 </div>
-              </button>
+              </Link>
 
-              <button className="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
+              <Link href="/dashboard/insights" className="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-300 group">
                 <div className="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <Brain className="w-5 h-5 text-purple-600" />
                 </div>
                 <div className="text-left">
                   <p className="font-medium text-gray-900" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Generate Report
+                    AI Insights
                   </p>
                   <p className="text-sm text-gray-500" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Create AI insights
+                    Generate reports
                   </p>
                 </div>
-              </button>
+              </Link>
             </div>
           </div>
 
-          {/* Performance Insights */}
+          {/* Getting Started */}
           <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl border border-gray-100 p-8">
             <h3 className="text-xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'SF Pro Display, system-ui, sans-serif' }}>
-              Performance
+              Getting Started
             </h3>
-            <div className="space-y-6">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-600" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Detection Accuracy
-                  </span>
-                  <span className="text-sm font-bold text-gray-900">98.5%</span>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-medium ${stats.competitors > 0 ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`}>
+                  {stats.competitors > 0 ? '✓' : '1'}
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-blue-600 h-2 rounded-full" style={{ width: '98.5%' }}></div>
-                </div>
+                <span className={`text-sm ${stats.competitors > 0 ? 'text-green-600' : 'text-gray-600'}`} style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+                  Add your first competitor
+                </span>
               </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-600" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Uptime
-                  </span>
-                  <span className="text-sm font-bold text-gray-900">99.9%</span>
+              
+              <div className="flex items-center gap-3">
+                <div className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-medium ${stats.changes > 0 ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-400'}`}>
+                  {stats.changes > 0 ? '✓' : '2'}
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-green-600 h-2 rounded-full" style={{ width: '99.9%' }}></div>
-                </div>
+                <span className={`text-sm ${stats.changes > 0 ? 'text-green-600' : 'text-gray-600'}`} style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+                  Start monitoring changes
+                </span>
               </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-600" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-                    Response Time
-                  </span>
-                  <span className="text-sm font-bold text-gray-900">1.2s</span>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center text-sm font-medium bg-gray-100 text-gray-400">
+                  3
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-purple-600 h-2 rounded-full" style={{ width: '85%' }}></div>
-                </div>
+                <span className="text-sm text-gray-600" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
+                  Generate AI insights
+                </span>
               </div>
             </div>
           </div>
