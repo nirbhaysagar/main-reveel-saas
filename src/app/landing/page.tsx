@@ -37,7 +37,7 @@ export default function LandingPage() {
             <ArrowUp className="inline-block w-8 h-8 ml-2 animate-bounce" />
           </h1>
           <p className="text-xl text-black mb-12 max-w-3xl mx-auto">
-            Unlock your brand's potential with our proven marketing expertise. From strategy to execution, we drive growth.
+            Unlock your brand&apos;s potential with our proven marketing expertise. From strategy to execution, we drive growth.
           </p>
           <Button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 hover:scale-105">
             Book a call
@@ -74,7 +74,7 @@ export default function LandingPage() {
               </div>
               <div>
                 <div className="text-6xl font-bold mb-2">$3M</div>
-                <p className="text-white/80">in funding raised by start-ups we've worked with.</p>
+                <p className="text-white/80">in funding raised by start-ups we&apos;ve worked with.</p>
               </div>
             </div>
             
@@ -82,7 +82,7 @@ export default function LandingPage() {
             <div>
               <Quote className="w-16 h-16 text-black mb-6" />
               <p className="text-lg text-black mb-6 italic">
-                "The final product exceeded my expectations. Impressed with the results!"
+                &quot;The final product exceeded my expectations. Impressed with the results!&quot;
               </p>
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-gray-300 rounded-full mr-3 flex items-center justify-center">
@@ -160,7 +160,7 @@ export default function LandingPage() {
               </h2>
               <div className="space-y-6 text-lg text-black">
                 <p>
-                  Our approach combines strategic thinking with innovative tactics to drive tangible results and achieve our clients' goals.
+                  Our approach combines strategic thinking with innovative tactics to drive tangible results and achieve our clients&apos; goals.
                 </p>
                 <p>
                   We are dedicated to delivering exceptional value and helping businesses thrive in the ever-evolving marketplace.
@@ -181,7 +181,7 @@ export default function LandingPage() {
               <div>
                 <h3 className="text-3xl font-bold text-black mb-4">#1 Team!</h3>
                 <p className="text-lg text-black">
-                  We've helped hundreds of partners, ranging from startups to medium-sized businesses to achieve their goals. And stellar feedback — is our reward!
+                  We&apos;ve helped hundreds of partners, ranging from startups to medium-sized businesses to achieve their goals. And stellar feedback — is our reward!
                 </p>
               </div>
             </div>

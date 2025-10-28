@@ -7,7 +7,7 @@ export default function DashboardPage() {
           Dashboard
         </h1>
         <p className="text-xl text-gray-600 font-light leading-relaxed" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-          Welcome back! Here's what's happening with your competitors.
+          Welcome back! Here&apos;s what&apos;s happening with your competitors.
         </p>
       </div>
 

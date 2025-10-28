@@ -216,7 +216,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-black mb-4" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700 }}>
-              Reveel, because manual competitor tracking can't keep up
+              Reveel, because manual competitor tracking can&apos;t keep up
             </h2>
       </div>
           
