@@ -214,7 +214,7 @@ export default function CompetitorDetailsPage() {
               <Clock className="w-12 h-12 mx-auto text-slate-300 mb-4" />
               <h3 className="text-lg font-semibold mb-2">No changes yet</h3>
               <p className="text-slate-500">
-                Click "Scrape Now" to check for changes
+                Click &quot;Scrape Now&quot; to check for changes
               </p>
             </div>
           ) : (

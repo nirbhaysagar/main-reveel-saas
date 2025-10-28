@@ -20,7 +20,7 @@ export default function CompetitorsPage() {
               Competitors
             </h1>
             <p className="text-xl text-gray-600 font-light leading-relaxed" style={{ fontFamily: 'SF Pro Text, system-ui, sans-serif' }}>
-              Manage and track your competitors' activities
+              Manage and track your competitors&apos; activities
             </p>
           </div>
           <Button 

@@ -41,7 +41,7 @@ export default function NewCompetitorPage() {
       } else {
         router.push('/dashboard/competitors')
       }
-    } catch (err) {
+    } catch {
       setError('Something went wrong')
     } finally {
       setLoading(false)
@@ -60,7 +60,7 @@ export default function NewCompetitorPage() {
         <div>
           <h1 className="text-3xl font-bold text-slate-900">Add Competitor</h1>
           <p className="text-slate-600 mt-1">
-            Track a new competitor's website or social media
+            Track a new competitor&apos;s website or social media
           </p>
         </div>
       </div>

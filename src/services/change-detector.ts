@@ -13,7 +13,7 @@ import { prisma } from '@/lib/db'
 interface SnapshotData {
   id: string
   html?: string
-  extractedData?: any
+  extractedData?: Record<string, unknown>
   detectedPrice?: number
   detectedText?: string
 }

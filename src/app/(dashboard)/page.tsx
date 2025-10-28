@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
-import { Users, Activity, AlertTriangle, Brain, Zap, Target, Plus } from 'lucide-react'
+import { Users, Activity, AlertTriangle, Brain, Target, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 export default function DashboardPage() {

@@ -5,7 +5,7 @@ import { Shield, CheckCircle, XCircle, AlertTriangle, Lock } from 'lucide-react'
 
 export default function SecurityPage() {
   const [testing, setTesting] = useState(false)
-  const [testResults, setTestResults] = useState<any[]>([])
+  const [testResults, setTestResults] = useState<{ test: string; status: 'pass' | 'fail' | 'warning'; message: string }[]>([])
 
   const securityTests = [
     {
