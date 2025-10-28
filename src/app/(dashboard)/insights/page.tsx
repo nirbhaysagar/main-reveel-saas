@@ -7,7 +7,7 @@ import { FileText, Sparkles, TrendingUp, Lightbulb } from 'lucide-react'
 
 export default function InsightsPage() {
   const [generating, setGenerating] = useState(false)
-  const [report, setReport] = useState<{ content: string; generatedAt: string } | null>(null)
+  const [report, setReport] = useState<{ title: string; summary: string; generatedAt: string } | null>(null)
 
   const handleGenerateReport = async () => {
     setGenerating(true)
