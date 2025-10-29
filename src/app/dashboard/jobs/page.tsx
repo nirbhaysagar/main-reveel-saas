@@ -3,66 +3,58 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Play, Clock, CheckCircle, XCircle, Loader } from 'lucide-react'
 
+interface Job {
+  id: string
+  name: string
+  status: string
+  progress?: number
+  createdAt: string
+  completedAt?: string
+  failedAt?: string
+  error?: string
+  data?: { competitorId?: string }
+}
+
 export default function JobsPage() {
   const [scheduling, setScheduling] = useState(false)
-  const [mounted, setMounted] = useState(false)
-  const [jobs, setJobs] = useState([
-    {
-      id: '1',
-      name: 'scrape-nike',
-      status: 'completed',
-      progress: 100,
-      createdAt: '2025-10-22T10:30:00Z',
-      completedAt: '2025-10-22T10:33:00Z',
-      data: { competitorId: 'nike' }
-    },
-    {
-      id: '2',
-      name: 'scrape-adidas',
-      status: 'completed',
-      progress: 100,
-      createdAt: '2025-10-22T10:30:00Z',
-      completedAt: '2025-10-22T10:32:00Z',
-      data: { competitorId: 'adidas' }
-    },
-    {
-      id: '3',
-      name: 'scrape-amazon',
-      status: 'active',
-      progress: 45,
-      createdAt: '2025-10-22T10:35:00Z',
-      data: { competitorId: 'amazon' }
-    },
-    {
-      id: '4',
-      name: 'scrape-google',
-      status: 'waiting',
-      progress: 0,
-      createdAt: '2025-10-22T10:35:00Z',
-      data: { competitorId: 'google' }
-    },
-    {
-      id: '5',
-      name: 'scrape-microsoft',
-      status: 'failed',
-      progress: 0,
-      createdAt: '2025-10-22T10:30:00Z',
-      failedAt: '2025-10-22T10:31:00Z',
-      error: 'Connection timeout',
-      data: { competitorId: 'microsoft' }
-    }
-  ])
+  const [jobs, setJobs] = useState<Job[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setMounted(true)
+    fetchJobs()
   }, [])
+
+  async function fetchJobs() {
+    try {
+      const res = await fetch('/api/jobs/status')
+      if (res.ok) {
+        const data = await res.json()
+        setJobs(data.jobs || [])
+      }
+    } catch (error) {
+      console.error('Error fetching jobs:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleScheduleJobs = async () => {
     setScheduling(true)
-    // Simulate job scheduling
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setScheduling(false)
-    alert('All scraping jobs have been scheduled successfully!')
+    try {
+      const res = await fetch('/api/jobs/schedule', { method: 'POST' })
+      if (!res.ok) {
+        const error = await res.json()
+        alert(error.error || 'Failed to schedule jobs')
+        return
+      }
+      alert('All scraping jobs have been scheduled successfully!')
+      await fetchJobs() // Refresh jobs list
+    } catch (error) {
+      console.error('Error scheduling jobs:', error)
+      alert('Failed to schedule jobs')
+    } finally {
+      setScheduling(false)
+    }
   }
 
   const getStatusIcon = (status: string) => {
@@ -96,7 +88,6 @@ export default function JobsPage() {
   }
 
   const formatTime = (dateString: string) => {
-    if (!mounted) return '--:--'
     return new Date(dateString).toLocaleTimeString('en-US', {
       hour12: false,
       hour: '2-digit',
@@ -104,32 +95,6 @@ export default function JobsPage() {
     })
   }
 
-  if (!mounted) {
-    return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-slate-900">Background Jobs</h1>
-            <p className="text-slate-600 mt-1">Monitor and manage automated scraping jobs</p>
-          </div>
-          <Button disabled className="flex items-center gap-2">
-            <Play className="w-4 h-4" />
-            Schedule All Jobs
-          </Button>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
-              <div className="animate-pulse">
-                <div className="h-4 bg-slate-200 rounded w-24 mb-2"></div>
-                <div className="h-8 bg-slate-200 rounded w-16"></div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="space-y-6">
@@ -207,8 +172,17 @@ export default function JobsPage() {
           </p>
         </div>
         <div className="p-6">
-          <div className="space-y-4">
-            {jobs.map((job) => {
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500">Loading jobs...</p>
+            </div>
+          ) : jobs.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500">No jobs scheduled yet. Click "Schedule All Jobs" to start.</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {jobs.map((job) => {
               const StatusIcon = getStatusIcon(job.status)
               const colorClass = getStatusColor(job.status)
               
@@ -278,7 +252,8 @@ export default function JobsPage() {
                 </div>
               )
             })}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

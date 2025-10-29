@@ -17,9 +17,56 @@ import { prisma } from '@/lib/db'
 // What: Connect to Redis
 // Why: BullMQ needs Redis to store jobs
 
-const connection = new Redis(process.env.REDIS_URL || 'redis://localhost:6379', {
-  maxRetriesPerRequest: null,
-})
+// Parse REDIS_URL and handle Upstash TLS connections
+function createRedisConnection() {
+  const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379'
+  
+  // Clean up REDIS_URL if it contains redis-cli command (common mistake)
+  let cleanUrl = redisUrl
+    .replace(/^redis-cli\s+/, '') // Remove "redis-cli " prefix
+    .replace(/--tls\s+-u\s+/, '') // Remove "--tls -u " flags
+    .replace(/--tls\s+/, '') // Remove "--tls " flag
+    .replace(/-u\s+/, '') // Remove "-u " flag
+    .trim()
+  
+  // For Upstash with TLS, convert redis:// to rediss://
+  if (cleanUrl.includes('upstash.io') || cleanUrl.includes('upstash.com')) {
+    cleanUrl = cleanUrl.replace(/^redis:\/\//, 'rediss://')
+  }
+  
+  // Parse URL to extract connection options
+  try {
+    const url = new URL(cleanUrl)
+    
+    const options: any = {
+      host: url.hostname,
+      port: parseInt(url.port) || 6379,
+      maxRetriesPerRequest: null,
+    }
+    
+    // Add password if present
+    if (url.password) {
+      options.password = decodeURIComponent(url.password)
+    }
+    
+    // Enable TLS for Upstash or rediss:// URLs
+    if (cleanUrl.startsWith('rediss://') || cleanUrl.includes('upstash')) {
+      options.tls = {
+        rejectUnauthorized: false, // Upstash uses self-signed certs
+      }
+    }
+    
+    return new Redis(options)
+  } catch (error) {
+    // Fallback to simple URL connection if parsing fails
+    console.warn('Failed to parse REDIS_URL, using simple connection:', error)
+    return new Redis(cleanUrl, {
+      maxRetriesPerRequest: null,
+    })
+  }
+}
+
+const connection = createRedisConnection()
 
 // ============================================
 // SCRAPING QUEUE
